@@ -12,6 +12,14 @@ public class Enemy : MonoBehaviour
     public Transform[] pathPoints; // 이동 경로
     private int currentPathIndex = 0; // 현재 위치
 
+    void Awake()
+    {
+        // 이동 경로를 정하는 코드로, 추후 수정할 수 있다.
+        pathPoints = new Transform[2];
+        pathPoints[0] = GameObject.Find("StartPath").transform;
+        pathPoints[1] = GameObject.Find("EndPath").transform;   
+    }
+
     void Update()
     {
         MoveAlongPath();
@@ -28,6 +36,11 @@ public class Enemy : MonoBehaviour
         if (Vector3.Distance(transform.position, target.position) < 0.1f)
         {
             currentPathIndex++;
+            if (currentPathIndex >= pathPoints.Length)
+            {
+                Destroy(gameObject);
+                // 여기에 넥서스에 피해를 입히는 코드를 추가한다.
+            }
         }
             
     }
