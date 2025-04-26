@@ -1,9 +1,11 @@
+using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    public float maxHP; // 최대 체력
-    public float currentHP; // 현재 체력
+    public int maxHP; // 최대 체력
+    public int currentHP; // 현재 체력
     public float moveSpeed; // 이동 속도
     public int rewardGold; // 처치 시 획득 골드
 
@@ -12,17 +14,24 @@ public class Enemy : MonoBehaviour
     public Transform[] pathPoints; // 이동 경로
     private int currentPathIndex = 0; // 현재 위치
 
-    void Awake()
+    public float moveDistance = 0.0f; // 현재까지 이동한 거리
+
+    public GameObject hpText;
+
+    protected virtual void Awake()
     {
         // 이동 경로를 정하는 코드로, 추후 수정할 수 있다.
         pathPoints = new Transform[2];
         pathPoints[0] = GameObject.Find("StartPath").transform;
-        pathPoints[1] = GameObject.Find("EndPath").transform;   
+        pathPoints[1] = GameObject.Find("EndPath").transform;
+
+        hpText = transform.Find("HpTextContainer").gameObject.transform.Find("HpText").gameObject;
     }
 
-    void Update()
+    protected virtual void Update()
     {
         MoveAlongPath();
+        hpText.GetComponent<TextMeshPro>().text = currentHP.ToString();
     }
 
     protected virtual void MoveAlongPath()
@@ -32,6 +41,7 @@ public class Enemy : MonoBehaviour
         Transform target = pathPoints[currentPathIndex];
         Vector3 dir = target.position - transform.position;
         transform.position += dir.normalized * moveSpeed * Time.deltaTime;
+        moveDistance += moveSpeed * Time.deltaTime;
 
         if (Vector3.Distance(transform.position, target.position) < 0.1f)
         {
@@ -39,13 +49,13 @@ public class Enemy : MonoBehaviour
             if (currentPathIndex >= pathPoints.Length)
             {
                 Destroy(gameObject);
-                // 여기에 넥서스에 피해를 입히는 코드를 추가한다.
+                // TODO : 여기에 넥서스에 피해를 입히는 코드를 추가한다.
             }
         }
             
     }
 
-    public virtual void TakeDamage(float damage)
+    public virtual void TakeDamage(int damage)
     {
         currentHP -= damage;
         if (currentHP <= 0)
