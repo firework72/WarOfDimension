@@ -35,5 +35,13 @@ public class GameManager : MonoBehaviour
 
         /* TODO : 현재 경험치 양에 따라 레벨을 변경하는 로직 구현 */
     }
+
+    public void DamageNexus(int damage) {
+        nexusHp -= damage;
+        if (nexusHp <= 0)
+        {
+            // TODO : 게임 오버
+        }
+    }
 }
 

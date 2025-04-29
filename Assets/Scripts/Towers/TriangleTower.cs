@@ -1,14 +1,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CircleTower : Tower
+public class TriangleTower : Tower
 {
     void Awake()
     {
-        attackRange = 3.0f;
+        attackRange = 4.0f;
         fireRate = 1.0f;
         damage = 1;
-        targetCnt = 1;
+        targetCnt = 3;
         upgradeCost = 50;
         firePoint = gameObject.transform;
     }

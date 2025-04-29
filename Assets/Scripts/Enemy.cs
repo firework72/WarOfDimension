@@ -6,6 +6,7 @@ public class Enemy : MonoBehaviour
 {
     public int maxHP; // 최대 체력
     public int currentHP; // 현재 체력
+    public int damage; // 넥서스에 입히는 대미지
     public float moveSpeed; // 이동 속도
     public int rewardGold; // 처치 시 획득 골드
 
@@ -48,8 +49,8 @@ public class Enemy : MonoBehaviour
             currentPathIndex++;
             if (currentPathIndex >= pathPoints.Length)
             {
+                GameManager.Instance.DamageNexus(damage);
                 Destroy(gameObject);
-                // TODO : 여기에 넥서스에 피해를 입히는 코드를 추가한다.
             }
         }
             

@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 public class Tower : MonoBehaviour
 {
@@ -9,6 +10,8 @@ public class Tower : MonoBehaviour
 
     private float fireCooldown = 0f;
 
+    public int targetCnt = 0;
+
     public Transform firePoint;         // 발사 위치
     public GameObject bulletPrefab;     // 발사할 탄환
 
@@ -16,7 +19,7 @@ public class Tower : MonoBehaviour
     {
         fireCooldown -= Time.deltaTime;
 
-        Enemy target = FindNearestEnemy();
+        List<Enemy> target = FindNearestEnemy(targetCnt);
         if (target != null && fireCooldown <= 0f)
         {
             Attack(target);
@@ -25,30 +28,42 @@ public class Tower : MonoBehaviour
     }
 
     // 공격해야 할 적을 탐색하는 함수 (기본적으로 가장 멀리 간 타겟을 공격)
-    public virtual Enemy FindNearestEnemy()
+    public virtual List<Enemy> FindNearestEnemy(int targetCnt)
     {
         Enemy[] enemies = GameObject.FindObjectsOfType<Enemy>();
-        Enemy target = null;
-        float longeestDist = -1;
+
+        List<Enemy> targetEnemies = new List<Enemy>();
 
         foreach (Enemy enemy in enemies)
         {
             float dist = Vector3.Distance(enemy.transform.position, firePoint.position);
-            if (enemy.moveDistance > longeestDist && dist <= attackRange)
+            if (dist <= attackRange)
             {
-                longeestDist = dist;
-                target = enemy;
+                targetEnemies.Add(enemy);
             }
         }
 
-        return target;
+        targetEnemies.Sort((a, b) => b.moveDistance.CompareTo(a.moveDistance));
+
+        List<Enemy> returnValue = new List<Enemy>();
+
+        for (int i = 0; i < Mathf.Min(targetCnt, targetEnemies.Count); i++)
+        {
+            returnValue.Add(targetEnemies[i]);
+        }
+
+        return returnValue;
     }
 
     // 실제로 탄환을 발사하는 함수
-    public virtual void Attack(Enemy target)
+    public virtual void Attack(List<Enemy> target)
     {
-        GameObject bullet = Instantiate(bulletPrefab, firePoint.position, Quaternion.identity);
-        bullet.GetComponent<Bullet>().SetTarget(target, damage);
+        foreach (Enemy enemy in target)
+        {
+            GameObject bullet = Instantiate(bulletPrefab, firePoint.position, Quaternion.identity);
+            bullet.GetComponent<Bullet>().SetTarget(enemy, damage);
+        }
+        
     }
 
 }
