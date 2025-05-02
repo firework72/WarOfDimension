@@ -3,6 +3,7 @@ using System.Collections.Generic;
 
 public class Tower : MonoBehaviour
 {
+    public int towerLvl;
     public float attackRange = 5f;      // 공격 범위
     public float fireRate = 1f;         // 초당 공격 횟수
     public int damage = 10;             // 한 발당 데미지
@@ -23,8 +24,9 @@ public class Tower : MonoBehaviour
         if (target != null && fireCooldown <= 0f)
         {
             Attack(target);
-            fireCooldown = 1f / fireRate;
+            fireCooldown = 1f / (fireRate * GameManager.Instance.fireRateBonus);
         }
+
     }
 
     // 공격해야 할 적을 탐색하는 함수 (기본적으로 가장 멀리 간 타겟을 공격)
@@ -43,6 +45,7 @@ public class Tower : MonoBehaviour
             }
         }
 
+        // 범위 내 있는 적들 중 가장 멀리 간 적을 몇 개 골라내기 위해 moveDistance를 기준으로 내림차순 정렬한다.
         targetEnemies.Sort((a, b) => b.moveDistance.CompareTo(a.moveDistance));
 
         List<Enemy> returnValue = new List<Enemy>();
