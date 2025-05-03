@@ -7,7 +7,8 @@ public class GameManager : MonoBehaviour
 
     public static GameManager Instance
     {
-        get {
+        get
+        {
             if (_instance == null)
             {
                 _instance = FindObjectOfType(typeof(GameManager)) as GameManager;
@@ -16,10 +17,53 @@ public class GameManager : MonoBehaviour
             return _instance;
         }
     }
+
+    public GameObject[] enemy; // 적 프리팹들
+
+    // 웨이브에 따라 스폰되는 적의 수 (0~5번째 값은 적의 종류, 6번째 값은 보스 여부)
+    public static int[][] spawnData = new int[30][]
+    {
+       new int[] {5, 0, 0, 0, 0, 0, 0}, // 웨이브 1  
+       new int[] {5, 5, 0, 0, 0, 0, 0}, // 웨이브 2  
+       new int[] {5, 5, 5, 0, 0, 0, 0}, // 웨이브 3  
+       new int[] {5, 5, 5, 5, 0, 0, 0}, // 웨이브 4  
+       new int[] {5, 5, 5, 5, 5, 0, 0}, // 웨이브 5  
+       new int[] {5, 5, 5, 5, 5, 5, 0}, // 웨이브 6  
+       new int[] {10, 5, 5, 5, 5, 5, 0}, // 웨이브 7  
+       new int[] {10, 10, 5, 5, 5, 5, 0}, // 웨이브 8  
+       new int[] {10, 10, 10, 5, 5, 5, 0}, // 웨이브 9  
+       new int[] {10, 10, 10, 10, 5, 5, 0}, // 웨이브 10  
+       new int[] {10, 10, 10, 10, 10, 5, 0}, // 웨이브 11  
+       new int[] {10, 10, 10, 10, 10, 10, 0}, // 웨이브 12  
+       new int[] {15, 10, 10, 10, 10, 10, 0}, // 웨이브 13  
+       new int[] {15, 15, 10, 10, 10, 10, 0}, // 웨이브 14  
+       new int[] {15, 15, 15, 10, 10, 10, 0}, // 웨이브 15  
+       new int[] {15, 15, 15, 15, 10, 10, 0}, // 웨이브 16  
+       new int[] {15, 15, 15, 15, 15, 10, 0}, // 웨이브 17  
+       new int[] {15, 15, 15, 15, 15, 15, 0}, // 웨이브 18  
+       new int[] {20, 15, 15, 15, 15, 15, 0}, // 웨이브 19  
+       new int[] {20, 20, 15, 15, 15, 15, 0}, // 웨이브 20  
+       new int[] {20, 20, 20, 15, 15, 15, 0}, // 웨이브 21  
+       new int[] {20, 20, 20, 20, 15, 15, 0}, // 웨이브 22  
+       new int[] {20, 20, 20, 20, 20, 15, 0}, // 웨이브 23  
+       new int[] {20, 20, 20, 20, 20, 20, 0}, // 웨이브 24  
+       new int[] {25, 20, 20, 20, 20, 20, 0}, // 웨이브 25  
+       new int[] {25, 25, 20, 20, 20, 20, 0}, // 웨이브 26  
+       new int[] {25, 25, 25, 20, 20, 20, 0}, // 웨이브 27  
+       new int[] {25, 25, 25, 25, 20, 20, 0}, // 웨이브 28  
+       new int[] {25, 25, 25, 25, 25, 20, 0}, // 웨이브 29 (6번째 값만 1)  
+       new int[] {0, 0, 0, 0, 0, 0, 1}  // 웨이브 30  
+    };
+
+    private int[] spawnedCnt = new int[6] {0, 0, 0, 0, 0, 0 }; // 각 웨이브에서 스폰된 적의 수 (0~5번째 값은 적의 종류, 6번째 값은 보스 여부)
+
+    private int curTargetEnemy = 0;
+    private int curTargetEnemySpawnCnt = 0;
     public int gold; // 현재 골드
     public int exp; // 현재 경험치
 
     public int curStage; // 현재 진행 중인 스테이지
+    public float remainTime; // 남은 시간 (0이 되면 웨이브가 증가함)
 
     public int lvl; // 현재 게임 레벨 (경험치로 상승함)
 
@@ -49,9 +93,48 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        
+        // 게임이 시작된 후 30초마다 웨이브가 증가한다.
+        remainTime -= Time.deltaTime;
+        if (remainTime <= 0)
+        {
+            curStage++;
+            remainTime = 30f;
+
+            for (int i = 0; i < 7; i++)
+            {
+                spawnedCnt[i] = 0;
+            }
+            Invoke("SpawnEnemy", 1.0f);
+        }
     }
 
+    // 웨이브에 따라 스폰되는 적을 생성하는 함수
+    private void SpawnEnemy()
+    {
+        if (curTargetEnemy >= 7)
+        {
+            return;
+        }
+
+        int totalEnemyCnt = 0;
+
+        for (int i = 0; i < 7; i++) 
+        {
+            totalEnemyCnt += spawnData[curStage % 30][i];
+        }
+
+        if (spawnedCnt[curTargetEnemy] >= spawnData[curStage % 30][curTargetEnemy])
+        {
+            curTargetEnemy++;
+            curTargetEnemySpawnCnt = 0;
+        }
+
+        curTargetEnemySpawnCnt++;
+        Instantiate(enemy[curTargetEnemy]);
+
+        Invoke("SpawnEnemy", 20.0f / totalEnemyCnt);
+    }
+    
     public void AddGold(int rewardGold)
     {
         gold += (int)(rewardGold * goldBonus);
@@ -61,10 +144,12 @@ public class GameManager : MonoBehaviour
     {
         exp += (int)(rewardExp * expBonus);
 
+        
         /* TODO : 현재 경험치 양에 따라 레벨을 변경하는 로직 구현 */
     }
 
-    public void DamageNexus(int damage) {
+    public void DamageNexus(int damage)
+    {
         nexusHp -= damage;
         if (nexusHp <= 0)
         {
@@ -78,5 +163,44 @@ public class GameManager : MonoBehaviour
         // TODO : 이곳에 레벨업 함수 구현
         // 레벨을 올리고, 레벨에 따라 maxNexusHp를 증가시킨다.
     }
-}
 
+    public void damageBonusLvlUp()
+    {
+        if (gold >= 100 * damageBonusLvl)
+        {
+            gold -= 100 * damageBonusLvl;
+            damageBonusLvl++;
+            damageBonus *= 1.05f;
+        }
+    }
+
+    public void fireRateBonusLvlUp()
+    {
+        if (gold >= 100 * fireRateBonusLvl)
+        {
+            gold -= 100 * fireRateBonusLvl;
+            fireRateBonusLvl++;
+            fireRateBonus += 0.1f;
+        }
+    }
+
+    public void expBonusLvlUp()
+    {
+        if (gold >= 100 * expBonusLvl)
+        {
+            gold -= 100 * expBonusLvl;
+            expBonusLvl++;
+            expBonus += 1.05f;
+        }
+    }
+
+    public void goldBonusLvlUp()
+    {
+        if (gold >= 100 * goldBonusLvl)
+        {
+            gold -= 100 * goldBonusLvl;
+            goldBonusLvl++;
+            goldBonus += 0.1f;
+        }
+    }
+}

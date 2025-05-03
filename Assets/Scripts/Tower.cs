@@ -69,4 +69,11 @@ public class Tower : MonoBehaviour
         
     }
 
+    private void OnMouseOver()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            
+        }
+    }
 }
