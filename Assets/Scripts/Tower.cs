@@ -8,6 +8,7 @@ public class Tower : MonoBehaviour
     public float fireRate = 1f;         // 초당 공격 횟수
     public int damage = 10;             // 한 발당 데미지
     public int upgradeCost = 50;        // 업그레이드 비용
+    public GameObject nextTower;        // 업그레이드 시 다음 레벨의 타워
 
     private float fireCooldown = 0f;
 
@@ -15,6 +16,7 @@ public class Tower : MonoBehaviour
 
     public Transform firePoint;         // 발사 위치
     public GameObject bulletPrefab;     // 발사할 탄환
+    public UIManager uiManager; // UI 매니저
 
     protected virtual void Update()
     {
@@ -73,7 +75,31 @@ public class Tower : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-            
+            UIManager.Instance.ShowTowerUpgradeUI(this);
+            Debug.Log("Tower clicked: " + gameObject.name);
+        }
+    }
+
+    // 타워를 업그레이드하는 함수
+    public void Upgrade()
+    {
+        if (nextTower != null)
+        {
+            if (GameManager.Instance.gold >= upgradeCost)
+            {
+                GameManager.Instance.gold -= upgradeCost;
+                Vector3 pos = transform.position;
+                Instantiate(nextTower, pos, Quaternion.identity); // Instantiate the firePoint at the tower's position
+                Destroy(gameObject); // Destroy the current tower
+            }
+            else
+            {
+                Debug.Log("Not enough gold to upgrade!");
+            }
+        }
+        else
+        {
+            Debug.Log("No next tower available for upgrade!");
         }
     }
 }

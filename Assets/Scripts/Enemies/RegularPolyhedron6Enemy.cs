@@ -1,15 +1,15 @@
 using UnityEngine;
 
-public class CircleEnemy : Enemy
+public class RegularPolyhedron6Enemy : Enemy
 {
     protected override void Awake()
     {
-        maxHP = 15 * (int)(Mathf.Pow(5, GameManager.Instance.curStage / 30));
+        maxHP = 40 * (int)(Mathf.Pow(5, GameManager.Instance.curStage / 30));
         currentHP = maxHP;
         damage = 1;
-        moveSpeed = 1.0f;
-        rewardGold = 10;
-        rewardExp = 10;
+        moveSpeed = 0.65f;
+        rewardGold = 25;
+        rewardExp = 25;
 
         base.Awake();
     }

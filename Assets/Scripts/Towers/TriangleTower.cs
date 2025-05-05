@@ -6,11 +6,12 @@ public class TriangleTower : Tower
     void Awake()
     {
         attackRange = 4.0f;
-        fireRate = 1.0f;
+        fireRate = 3.0f;
         damage = 1;
         targetCnt = 3;
-        upgradeCost = 50;
+        upgradeCost = 100;
         firePoint = gameObject.transform;
+
     }
 
     protected override void Update()

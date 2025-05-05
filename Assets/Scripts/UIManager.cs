@@ -10,7 +10,7 @@ public class UIManager : MonoBehaviour
     public GameObject curStageText;
     public GameObject remainTimeText;
 
-    public GameObject selectedTower; // 선택된 타워
+    public Tower selectedTower; // 선택된 타워
     public GameObject gachaTower; // 뽑기로 획득한 타워
 
     public Button gachaButton; // 뽑기 버튼
@@ -18,6 +18,21 @@ public class UIManager : MonoBehaviour
     public Button removeButton; // 제거 버튼
 
     public GameObject towerUpgradeUI; // 타워 정보 패널
+
+    private static UIManager _instance;
+
+    public static UIManager Instance
+    {
+        get
+        {
+            if (_instance == null)
+            {
+                _instance = FindObjectOfType(typeof(UIManager)) as UIManager;
+            }
+
+            return _instance;
+        }
+    }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -31,11 +46,11 @@ public class UIManager : MonoBehaviour
         goldText.GetComponent<TextMeshProUGUI>().text = "Gold : " + GameManager.Instance.gold.ToString();
         expText.GetComponent<TextMeshProUGUI>().text = "Exp : " + GameManager.Instance.exp.ToString();
         nexusHpText.GetComponent<TextMeshProUGUI>().text = "NexusHp : " + GameManager.Instance.nexusHp.ToString();
-        curStageText.GetComponent<TextMeshProUGUI>().text = "Wave " + GameManager.Instance.curStage.ToString();
+        curStageText.GetComponent<TextMeshProUGUI>().text = "Wave " + (GameManager.Instance.curStage + 1).ToString();
         remainTimeText.GetComponent<TextMeshProUGUI>().text = GameManager.Instance.remainTime.ToString("F1") + "s";
     }
 
-    public void ShowTowerUpgradeUI(GameObject tower)
+    public void ShowTowerUpgradeUI(Tower tower)
     {
         selectedTower = tower;
 
@@ -44,7 +59,12 @@ public class UIManager : MonoBehaviour
 
     public void OnUpgradeButtonClicked()
     {
-
+        if (selectedTower != null)
+        {
+            selectedTower.Upgrade();
+            selectedTower = null;
+            towerUpgradeUI.SetActive(false);
+        }
     }
 
     public void OnRemoveButtonClicked()

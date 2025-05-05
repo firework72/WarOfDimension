@@ -1,16 +1,31 @@
 using UnityEngine;
 
-public class RegularPolyhedron12Enemy : MonoBehaviour
+public class RegularPolyhedron12Enemy : Enemy
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    protected override void Awake()
     {
-        
+        maxHP = 45 * (int)(Mathf.Pow(5, GameManager.Instance.curStage / 30));
+        currentHP = maxHP;
+        damage = 1;
+        moveSpeed = 0.75f;
+        rewardGold = 50;
+        rewardExp = 50;
+
+        base.Awake();
     }
 
-    // Update is called once per frame
-    void Update()
+    protected override void Update()
     {
-        
+        base.Update();
+    }
+
+    protected override void MoveAlongPath()
+    {
+        base.MoveAlongPath();
+    }
+
+    protected override void Die()
+    {
+        base.Die();
     }
 }

@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 1712997555977173651}
   - component: {fileID: 8014598776700994758}
   m_Layer: 0
-  m_Name: TriangleTower
+  m_Name: StarTower
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -106,11 +106,9 @@ MonoBehaviour:
   fireRate: 1
   damage: 10
   upgradeCost: 50
-  nextTower: {fileID: 5175707710420349722, guid: 1e49466864f3c5e4691e3e272acdcd1b, type: 3}
   targetCnt: 0
   firePoint: {fileID: 0}
   bulletPrefab: {fileID: 637169457330425848, guid: f7b6104c938174fd2bf438148184df1c, type: 3}
-  uiManager: {fileID: 0}
 --- !u!65 &8014598776700994758
 BoxCollider:
   m_ObjectHideFlags: 0

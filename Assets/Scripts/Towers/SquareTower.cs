@@ -1,16 +1,31 @@
+using System.Collections.Generic;
 using UnityEngine;
 
-public class SquareTower : MonoBehaviour
+public class SquareTower : Tower
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    void Awake()
     {
-        
+        attackRange = 5.0f;
+        fireRate = 4.0f;
+        damage = 1;
+        targetCnt = 4;
+        upgradeCost = 200;
+        firePoint = gameObject.transform;
+
     }
 
-    // Update is called once per frame
-    void Update()
+    protected override void Update()
     {
-        
+        base.Update();
+    }
+
+    public override List<Enemy> FindNearestEnemy(int targetCnt)
+    {
+        return base.FindNearestEnemy(targetCnt);
+    }
+
+    public override void Attack(List<Enemy> target)
+    {
+        base.Attack(target);
     }
 }

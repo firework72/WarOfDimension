@@ -51,18 +51,18 @@ public class GameManager : MonoBehaviour
        new int[] {25, 25, 20, 20, 20, 20, 0}, // 웨이브 26  
        new int[] {25, 25, 25, 20, 20, 20, 0}, // 웨이브 27  
        new int[] {25, 25, 25, 25, 20, 20, 0}, // 웨이브 28  
-       new int[] {25, 25, 25, 25, 25, 20, 0}, // 웨이브 29 (6번째 값만 1)  
+       new int[] {25, 25, 25, 25, 25, 20, 0}, // 웨이브 29
        new int[] {0, 0, 0, 0, 0, 0, 1}  // 웨이브 30  
     };
 
-    private int[] spawnedCnt = new int[6] {0, 0, 0, 0, 0, 0 }; // 각 웨이브에서 스폰된 적의 수 (0~5번째 값은 적의 종류, 6번째 값은 보스 여부)
+    private int[] spawnedCnt = new int[7] {0, 0, 0, 0, 0, 0, 0 }; // 각 웨이브에서 스폰된 적의 수 (0~5번째 값은 적의 종류, 6번째 값은 보스 여부)
 
     private int curTargetEnemy = 0;
     private int curTargetEnemySpawnCnt = 0;
     public int gold; // 현재 골드
     public int exp; // 현재 경험치
 
-    public int curStage; // 현재 진행 중인 스테이지
+    public int curStage = -1; // 현재 진행 중인 스테이지
     public float remainTime; // 남은 시간 (0이 되면 웨이브가 증가함)
 
     public int lvl; // 현재 게임 레벨 (경험치로 상승함)
@@ -82,6 +82,7 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
+        gold = 1600; // test code
         damageBonusLvl = 1;
         fireRateBonusLvl = 1;
         expBonusLvl = 1;
@@ -104,6 +105,7 @@ public class GameManager : MonoBehaviour
             {
                 spawnedCnt[i] = 0;
             }
+            curTargetEnemy = 0;
             Invoke("SpawnEnemy", 1.0f);
         }
     }
@@ -111,10 +113,6 @@ public class GameManager : MonoBehaviour
     // 웨이브에 따라 스폰되는 적을 생성하는 함수
     private void SpawnEnemy()
     {
-        if (curTargetEnemy >= 7)
-        {
-            return;
-        }
 
         int totalEnemyCnt = 0;
 
@@ -123,14 +121,28 @@ public class GameManager : MonoBehaviour
             totalEnemyCnt += spawnData[curStage % 30][i];
         }
 
-        if (spawnedCnt[curTargetEnemy] >= spawnData[curStage % 30][curTargetEnemy])
+        while (curTargetEnemy < 7 && spawnedCnt[curTargetEnemy] >= spawnData[curStage % 30][curTargetEnemy])
         {
             curTargetEnemy++;
-            curTargetEnemySpawnCnt = 0;
         }
 
-        curTargetEnemySpawnCnt++;
-        Instantiate(enemy[curTargetEnemy]);
+        if (curTargetEnemy >= 7)
+        {
+            return;
+        }
+
+        string s = "";
+
+        for (int i = 0; i < 7; i++)
+        {
+            s += spawnedCnt[i].ToString() + " ";
+        }
+
+        Debug.Log(s);
+
+        GameObject newEnemy = Instantiate(enemy[curTargetEnemy]);
+        spawnedCnt[curTargetEnemy]++;
+        newEnemy.transform.position = new Vector3(-9, 0, 0);
 
         Invoke("SpawnEnemy", 20.0f / totalEnemyCnt);
     }

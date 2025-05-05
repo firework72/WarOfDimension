@@ -107,6 +107,7 @@ MonoBehaviour:
   fireRate: 1
   damage: 10
   upgradeCost: 50
+  nextTower: {fileID: 5175707710420349722, guid: 91afd575a89134b89b121531b4d0ce2c, type: 3}
   targetCnt: 0
   firePoint: {fileID: 0}
   bulletPrefab: {fileID: 637169457330425848, guid: f7b6104c938174fd2bf438148184df1c, type: 3}
