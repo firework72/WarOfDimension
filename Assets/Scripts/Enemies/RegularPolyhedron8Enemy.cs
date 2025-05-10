@@ -4,7 +4,7 @@ public class RegularPolyhedron8Enemy : Enemy
 {
     protected override void Awake()
     {
-        maxHP = 30 * (int)(Mathf.Pow(5, GameManager.Instance.curStage / 30));
+        maxHP = 30;
         currentHP = maxHP;
         damage = 1;
         moveSpeed = 0.7f;

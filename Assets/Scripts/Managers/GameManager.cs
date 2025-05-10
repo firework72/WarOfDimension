@@ -85,7 +85,8 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        gold = 1600; // test code
+        gold = 100; // test code
+        curStage = -1;
         damageBonusLvl = 1;
         fireRateBonusLvl = 1;
         expBonusLvl = 1;
@@ -97,12 +98,12 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        // 게임이 시작된 후 30초마다 웨이브가 증가한다.
+        // 게임이 시작된 후 15초마다 웨이브가 증가한다.
         remainTime -= Time.deltaTime;
         if (remainTime <= 0)
         {
             curStage++;
-            remainTime = 30f;
+            remainTime = 15f;
 
             for (int i = 0; i < 7; i++)
             {
@@ -165,9 +166,11 @@ public class GameManager : MonoBehaviour
         Debug.Log(s);
 
         GameObject newEnemy = Instantiate(enemy[curTargetEnemy]);
+        newEnemy.GetComponent<Enemy>().maxHP = (int)(newEnemy.GetComponent<Enemy>().maxHP * Mathf.Pow(1.03f, curStage));
+        newEnemy.GetComponent<Enemy>().currentHP = newEnemy.GetComponent<Enemy>().maxHP;
         spawnedCnt[curTargetEnemy]++;
 
-        Invoke("SpawnEnemy", 20.0f / totalEnemyCnt);
+        Invoke("SpawnEnemy", 14f / totalEnemyCnt);
     }
     
     public void AddGold(int rewardGold)
@@ -215,7 +218,11 @@ public class GameManager : MonoBehaviour
         {
             gold -= 100 * damageBonusLvl;
             damageBonusLvl++;
-            damageBonus *= 1.05f;
+            damageBonus += 0.05f;
+        }
+        else
+        {
+            Debug.Log("You don't have enough gold");
         }
     }
 
@@ -225,7 +232,11 @@ public class GameManager : MonoBehaviour
         {
             gold -= 100 * fireRateBonusLvl;
             fireRateBonusLvl++;
-            fireRateBonus += 0.1f;
+            fireRateBonus += 0.05f;
+        }
+        else
+        {
+            Debug.Log("You don't have enough gold");
         }
     }
 
@@ -235,7 +246,11 @@ public class GameManager : MonoBehaviour
         {
             gold -= 100 * expBonusLvl;
             expBonusLvl++;
-            expBonus += 1.05f;
+            expBonus += 0.05f;
+        }
+        else
+        {
+            Debug.Log("You don't have enough gold");
         }
     }
 
@@ -245,7 +260,11 @@ public class GameManager : MonoBehaviour
         {
             gold -= 100 * goldBonusLvl;
             goldBonusLvl++;
-            goldBonus += 0.1f;
+            goldBonus += 0.05f;
+        }
+        else
+        {
+            Debug.Log("You don't have enough gold");
         }
     }
 

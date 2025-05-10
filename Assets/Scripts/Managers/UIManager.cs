@@ -77,7 +77,7 @@ public class UIManager : MonoBehaviour
     {
         if (selectedTower != null)
         {
-            Destroy(selectedTower);
+            Destroy(selectedTower.gameObject);
             selectedTower = null;
             towerUpgradeUI.SetActive(false);
         }

@@ -15,6 +15,7 @@ public class ClickManager : MonoBehaviour
             if (hit.collider.CompareTag("Path") || hit.collider.CompareTag("Tower")) // 특정 태그 확인
             {
                 Debug.Log("You cannot install tower here.");
+                ErrorMessageManager.Instance.ShowErrorMessage("You cannot install tower here."); // 에러 메시지 표시
                 return; // 설치를 막기 위해 함수 종료
             }
         }
