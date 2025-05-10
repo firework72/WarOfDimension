@@ -7,7 +7,7 @@ public class PentagonTower : Tower
     {
         attackRange = 6.0f;
         fireRate = 5.0f;
-        damage = 1;
+        damage = 1 * towerLvl;
         targetCnt = 5;
         upgradeCost = 400;
         firePoint = gameObject.transform;

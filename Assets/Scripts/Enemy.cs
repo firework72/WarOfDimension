@@ -22,9 +22,13 @@ public class Enemy : MonoBehaviour
     protected virtual void Awake()
     {
         // 이동 경로를 정하는 코드로, 추후 수정할 수 있다.
-        pathPoints = new Transform[2];
-        pathPoints[0] = GameObject.Find("StartPath").transform;
-        pathPoints[1] = GameObject.Find("EndPath").transform;
+        pathPoints = new Transform[23];
+        for (int i = 0; i < pathPoints.Length; i++)
+        {
+            pathPoints[i] = GameObject.Find("PathGroup").transform.GetChild(i).transform;
+        }
+
+        transform.position = pathPoints[0].position;
 
         hpText = transform.Find("HpTextContainer").gameObject.transform.Find("HpText").gameObject;
     }

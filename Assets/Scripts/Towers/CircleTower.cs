@@ -7,7 +7,7 @@ public class CircleTower : Tower
     {
         attackRange = 3.0f;
         fireRate = 1.0f;
-        damage = 1;
+        damage = 1 * towerLvl;
         targetCnt = 1;
         upgradeCost = 50;
         firePoint = gameObject.transform;
@@ -27,10 +27,5 @@ public class CircleTower : Tower
     public override void Attack(List<Enemy> target)
     {
         base.Attack(target);
-    }
-
-    public void Upgrade()
-    {
-        base.Upgrade();
     }
 }

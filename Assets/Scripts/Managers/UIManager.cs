@@ -10,14 +10,17 @@ public class UIManager : MonoBehaviour
     public GameObject curStageText;
     public GameObject remainTimeText;
 
-    public Tower selectedTower; // ¼±ÅÃµÈ Å¸¿ö
-    public GameObject gachaTower; // »Ì±â·Î È¹µæÇÑ Å¸¿ö
+    public Tower selectedTower; // ï¿½ï¿½ï¿½Ãµï¿½ Å¸ï¿½ï¿½
+    public GameObject gachaTower; // ï¿½Ì±ï¿½ï¿½ È¹ï¿½ï¿½ï¿½ï¿½ Å¸ï¿½ï¿½
 
-    public Button gachaButton; // »Ì±â ¹öÆ°
-    public Button upgradeButton; // ¾÷±×·¹ÀÌµå ¹öÆ°
-    public Button removeButton; // Á¦°Å ¹öÆ°
+    public Button gachaButton; // ï¿½Ì±ï¿½ ï¿½ï¿½Æ°
+    public Button upgradeButton; // ï¿½ï¿½ï¿½×·ï¿½ï¿½Ìµï¿½ ï¿½ï¿½Æ°
+    public Button removeButton; // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ°
 
-    public GameObject towerUpgradeUI; // Å¸¿ö Á¤º¸ ÆÐ³Î
+    public GameObject towerUpgradeUI; // Å¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ð³ï¿½
+
+    public GameObject towerImage;
+    public GameObject towerLvlText;
 
     private static UIManager _instance;
 
@@ -37,7 +40,7 @@ public class UIManager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-
+        
     }
 
     // Update is called once per frame
@@ -53,6 +56,9 @@ public class UIManager : MonoBehaviour
     public void ShowTowerUpgradeUI(Tower tower)
     {
         selectedTower = tower;
+
+        towerImage.GetComponent<Image>().sprite = tower.GetComponent<SpriteRenderer>().sprite;
+        towerLvlText.GetComponent<TextMeshProUGUI>().text = "Lv." + tower.towerLvl.ToString();
 
         towerUpgradeUI.SetActive(true);
     }

@@ -7,7 +7,7 @@ public class HexagonTower : Tower
     {
         attackRange = 7.0f;
         fireRate = 6.0f;
-        damage = 1;
+        damage = 1 * towerLvl;
         targetCnt = 6;
         upgradeCost = 1000;
         firePoint = gameObject.transform;

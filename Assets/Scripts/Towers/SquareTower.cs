@@ -7,7 +7,7 @@ public class SquareTower : Tower
     {
         attackRange = 5.0f;
         fireRate = 4.0f;
-        damage = 1;
+        damage = 1 * towerLvl;
         targetCnt = 4;
         upgradeCost = 200;
         firePoint = gameObject.transform;

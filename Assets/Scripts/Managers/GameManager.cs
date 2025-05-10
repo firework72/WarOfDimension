@@ -78,6 +78,9 @@ public class GameManager : MonoBehaviour
     public float expBonus = 1.0f;
     public float goldBonus = 1.0f;
 
+    public int towerInstallCost = 10;
+    public GameObject installTower; // 설치할 타워
+
     public int damageBonusLvl, fireRateBonusLvl, expBonusLvl, goldBonusLvl;
 
     void Start()
@@ -107,6 +110,27 @@ public class GameManager : MonoBehaviour
             }
             curTargetEnemy = 0;
             Invoke("SpawnEnemy", 1.0f);
+        }
+    }
+
+    public void InstallTower()
+    {
+        if (gold >= towerInstallCost)
+        {
+            Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            mousePosition.z = 0; // 2D 좌표이므로 z 값을 0으로 설정
+            GameObject newTower = Instantiate(installTower, mousePosition, Quaternion.identity);
+            gold -= towerInstallCost;
+            newTower.GetComponent<Tower>().towerLvl = lvl; // 타워 레벨 초기화
+            newTower.GetComponent<Tower>().damage = 1 * newTower.GetComponent<Tower>().towerLvl; // 타워의 공격력 초기화
+            newTower.GetComponent<Tower>().upgradeCost = 50 * newTower.GetComponent<Tower>().towerLvl; // 타워의 업그레이드 비용 초기화
+            Debug.Log("Tower installed");
+
+            towerInstallCost += 10; // 타워 설치 비용 증가
+        }
+        else
+        {
+            Debug.Log("You don't have enough golds");
         }
     }
 
@@ -142,7 +166,6 @@ public class GameManager : MonoBehaviour
 
         GameObject newEnemy = Instantiate(enemy[curTargetEnemy]);
         spawnedCnt[curTargetEnemy]++;
-        newEnemy.transform.position = new Vector3(-9, 0, 0);
 
         Invoke("SpawnEnemy", 20.0f / totalEnemyCnt);
     }
@@ -156,8 +179,7 @@ public class GameManager : MonoBehaviour
     {
         exp += (int)(rewardExp * expBonus);
 
-        
-        /* TODO : 현재 경험치 양에 따라 레벨을 변경하는 로직 구현 */
+        LevelUp();
     }
 
     public void DamageNexus(int damage)
@@ -174,6 +196,17 @@ public class GameManager : MonoBehaviour
     {
         // TODO : 이곳에 레벨업 함수 구현
         // 레벨을 올리고, 레벨에 따라 maxNexusHp를 증가시킨다.
+
+        while (exp >= 100 * lvl)
+        {
+            exp -= 100 * lvl;
+            lvl++;
+            maxNexusHp += 10;
+            nexusHp += 10;
+        }
+        Debug.Log("Level Up! Current Level: " + lvl);
+        Debug.Log("Current Nexus HP: " + nexusHp);
+        Debug.Log("Max Nexus HP: " + maxNexusHp);
     }
 
     public void damageBonusLvlUp()
@@ -215,4 +248,6 @@ public class GameManager : MonoBehaviour
             goldBonus += 0.1f;
         }
     }
+
+    
 }

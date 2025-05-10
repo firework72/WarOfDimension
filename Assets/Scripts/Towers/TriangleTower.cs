@@ -7,7 +7,7 @@ public class TriangleTower : Tower
     {
         attackRange = 4.0f;
         fireRate = 3.0f;
-        damage = 1;
+        damage = 1 * towerLvl;
         targetCnt = 3;
         upgradeCost = 100;
         firePoint = gameObject.transform;
