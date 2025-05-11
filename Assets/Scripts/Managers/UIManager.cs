@@ -59,6 +59,7 @@ public class UIManager : MonoBehaviour
 
         towerImage.GetComponent<Image>().sprite = tower.GetComponent<SpriteRenderer>().sprite;
         towerLvlText.GetComponent<TextMeshProUGUI>().text = "Lv." + tower.towerLvl.ToString();
+        upgradeButton.transform.Find("UpgradeCostText").GetComponent<TextMeshProUGUI>().text = tower.upgradeCost.ToString() + " gold";
 
         towerUpgradeUI.SetActive(true);
     }
