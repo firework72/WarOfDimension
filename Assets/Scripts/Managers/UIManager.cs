@@ -5,7 +5,7 @@ using UnityEngine.UI;
 public class UIManager : MonoBehaviour
 {
     public GameObject goldText;
-    public GameObject expText;
+    public GameObject lvlText;
     public GameObject nexusHpText;
     public GameObject curStageText;
     public GameObject remainTimeText;
@@ -21,6 +21,8 @@ public class UIManager : MonoBehaviour
 
     public GameObject towerImage;
     public GameObject towerLvlText;
+
+    public GameObject expProgressBar;
 
     private static UIManager _instance;
 
@@ -40,17 +42,19 @@ public class UIManager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        goldText.GetComponent<TextMeshProUGUI>().text = "Gold : " + GameManager.Instance.gold.ToString();
-        expText.GetComponent<TextMeshProUGUI>().text = "Exp : " + GameManager.Instance.exp.ToString();
-        nexusHpText.GetComponent<TextMeshProUGUI>().text = "NexusHp : " + GameManager.Instance.nexusHp.ToString();
+        goldText.GetComponent<TextMeshProUGUI>().text = GameManager.Instance.gold.ToString();
+        lvlText.GetComponent<TextMeshProUGUI>().text = "Lv." + GameManager.Instance.lvl.ToString();
+        nexusHpText.GetComponent<TextMeshProUGUI>().text = GameManager.Instance.nexusHp.ToString();
         curStageText.GetComponent<TextMeshProUGUI>().text = "Wave " + (GameManager.Instance.curStage + 1).ToString();
         remainTimeText.GetComponent<TextMeshProUGUI>().text = GameManager.Instance.remainTime.ToString("F1") + "s";
+
+        UpdateExpProgressBar();
     }
 
     public void ShowTowerUpgradeUI(Tower tower)
@@ -59,7 +63,7 @@ public class UIManager : MonoBehaviour
 
         towerImage.GetComponent<Image>().sprite = tower.GetComponent<SpriteRenderer>().sprite;
         towerLvlText.GetComponent<TextMeshProUGUI>().text = "Lv." + tower.towerLvl.ToString();
-        upgradeButton.transform.Find("UpgradeCostText").GetComponent<TextMeshProUGUI>().text = tower.upgradeCost.ToString() + " gold";
+        towerUpgradeUI.transform.Find("UpgradeCostText").GetComponent<TextMeshProUGUI>().text = tower.upgradeCost.ToString();
 
         towerUpgradeUI.SetActive(true);
     }
@@ -82,5 +86,12 @@ public class UIManager : MonoBehaviour
             selectedTower = null;
             towerUpgradeUI.SetActive(false);
         }
+    }
+
+    public void UpdateExpProgressBar()
+    {
+        expProgressBar.GetComponent<Slider>().minValue = 0;
+        expProgressBar.GetComponent<Slider>().maxValue = GameManager.Instance.lvl * 100;
+        expProgressBar.GetComponent<Slider>().value = GameManager.Instance.exp;
     }
 }

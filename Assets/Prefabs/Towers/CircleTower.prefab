@@ -109,7 +109,7 @@ MonoBehaviour:
   nextTower: {fileID: 5175707710420349722, guid: 91afd575a89134b89b121531b4d0ce2c, type: 3}
   targetCnt: 0
   firePoint: {fileID: 0}
-  bulletPrefab: {fileID: 637169457330425848, guid: f7b6104c938174fd2bf438148184df1c, type: 3}
+  bulletPrefab: {fileID: 637169457330425848, guid: 6bae8e302eb5143a091c0fd37b1d57a2, type: 3}
   uiManager: {fileID: 0}
 --- !u!61 &5794799263160656004
 BoxCollider2D:

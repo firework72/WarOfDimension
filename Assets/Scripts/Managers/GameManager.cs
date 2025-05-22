@@ -156,15 +156,6 @@ public class GameManager : MonoBehaviour
             return;
         }
 
-        string s = "";
-
-        for (int i = 0; i < 7; i++)
-        {
-            s += spawnedCnt[i].ToString() + " ";
-        }
-
-        Debug.Log(s);
-
         GameObject newEnemy = Instantiate(enemy[curTargetEnemy]);
         newEnemy.GetComponent<Enemy>().maxHP = (int)(newEnemy.GetComponent<Enemy>().maxHP * Mathf.Pow(1.03f, curStage));
         newEnemy.GetComponent<Enemy>().currentHP = newEnemy.GetComponent<Enemy>().maxHP;

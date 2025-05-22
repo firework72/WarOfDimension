@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 6437267446658013376}
   - component: {fileID: 2576911232397374045}
-  - component: {fileID: 1712997555977173651}
   - component: {fileID: 6235792518787797711}
+  - component: {fileID: -6637091511659630513}
   m_Layer: 0
   m_Name: StarTower
   m_TagString: Tower
@@ -89,28 +89,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &1712997555977173651
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5175707710420349722}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 776c7480953f3400493b6e84f2ba08ae, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  towerLvl: 0
-  attackRange: 5
-  fireRate: 1
-  damage: 10
-  upgradeCost: 50
-  nextTower: {fileID: 0}
-  targetCnt: 0
-  firePoint: {fileID: 0}
-  bulletPrefab: {fileID: 637169457330425848, guid: f7b6104c938174fd2bf438148184df1c, type: 3}
-  uiManager: {fileID: 0}
 --- !u!61 &6235792518787797711
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -157,3 +135,25 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 2, y: 2}
   m_EdgeRadius: 0
+--- !u!114 &-6637091511659630513
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5175707710420349722}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d3318cca78d7e440a18cac8f05f525e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  towerLvl: 0
+  attackRange: 5
+  fireRate: 1
+  damage: 10
+  upgradeCost: 50
+  nextTower: {fileID: 0}
+  targetCnt: 0
+  firePoint: {fileID: 0}
+  bulletPrefab: {fileID: 637169457330425848, guid: 5a7b44e4542e648c19461eea0ea28196, type: 3}
+  uiManager: {fileID: 0}
