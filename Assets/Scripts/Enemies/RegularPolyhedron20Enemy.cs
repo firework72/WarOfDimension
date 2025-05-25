@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class RegularPolyhedron20Enemy : Enemy
 {
+    public GameObject regularPolyhedron8Enemy;
     protected override void Awake()
     {
         maxHP = 50;
@@ -26,6 +27,18 @@ public class RegularPolyhedron20Enemy : Enemy
 
     protected override void Die()
     {
-        base.Die();
+        for (int i = 0; i < 2; i++)
+        {
+            GameObject newEnemy = Instantiate(regularPolyhedron8Enemy, transform.position, Quaternion.identity);
+            newEnemy.GetComponent<Enemy>().maxHP = maxHP * 3 / 5;
+            newEnemy.GetComponent<Enemy>().currentHP = maxHP * 3 / 5;
+        }
+
+        // °ñµå Áö±Þ
+        GameManager.Instance.AddGold(rewardGold);
+        GameManager.Instance.AddExp(rewardExp);
+
+        // ÆÄ±«
+        Destroy(gameObject);
     }
 }

@@ -101,12 +101,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
-  hitEffect: {fileID: 5238538877814813142, guid: 47096eff328e11a418ace7db2d72aa97, type: 3}
+  hitEffect: {fileID: 8762405910555896786, guid: fcb74f28d107e284e80af037bfec14ca, type: 3}
   damage: 0
   speed: 20
-  targetTransform: {fileID: 0}
   dropDuration: 1
   aoeRadius: 2
   enemyLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64
+  targetTransform: {fileID: 0}
+  targetTransformPos: {x: 0, y: 0, z: 0}

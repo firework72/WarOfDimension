@@ -24,6 +24,15 @@ public class UIManager : MonoBehaviour
 
     public GameObject expProgressBar;
 
+    public GameObject fireRateInfoText;
+    public GameObject fireRateUpgradeCostText;
+    public GameObject damageInfoText;
+    public GameObject damageUpgradeCostText;
+    public GameObject expInfoText;
+    public GameObject expUpgradeCostText;
+    public GameObject goldInfoText;
+    public GameObject goldUpgradeCostText;
+
     private static UIManager _instance;
 
     public static UIManager Instance
@@ -53,6 +62,18 @@ public class UIManager : MonoBehaviour
         nexusHpText.GetComponent<TextMeshProUGUI>().text = GameManager.Instance.nexusHp.ToString();
         curStageText.GetComponent<TextMeshProUGUI>().text = "Wave " + (GameManager.Instance.curStage + 1).ToString();
         remainTimeText.GetComponent<TextMeshProUGUI>().text = GameManager.Instance.remainTime.ToString("F1") + "s";
+
+        fireRateInfoText.GetComponent<TextMeshProUGUI>().text = "x" + (GameManager.Instance.fireRateBonus).ToString("F2");
+        fireRateUpgradeCostText.GetComponent<TextMeshProUGUI>().text =( GameManager.Instance.fireRateBonusLvl * 100).ToString();
+        damageInfoText.GetComponent<TextMeshProUGUI>().text = "x" + (GameManager.Instance.damageBonus).ToString("F2");
+        damageUpgradeCostText.GetComponent<TextMeshProUGUI>().text = (GameManager.Instance.damageBonusLvl * 100).ToString();
+        expInfoText.GetComponent<TextMeshProUGUI>().text = "x" + (GameManager.Instance.expBonus).ToString("F2");
+        expUpgradeCostText.GetComponent<TextMeshProUGUI>().text = (GameManager.Instance.expBonusLvl * 100).ToString();
+        goldInfoText.GetComponent<TextMeshProUGUI>().text = "x" + (GameManager.Instance.goldBonus).ToString("F2");
+        goldUpgradeCostText.GetComponent<TextMeshProUGUI>().text = (GameManager.Instance.goldBonusLvl * 100).ToString();
+
+        // 업그레이드 버튼 텍스트 변경
+
 
         UpdateExpProgressBar();
     }

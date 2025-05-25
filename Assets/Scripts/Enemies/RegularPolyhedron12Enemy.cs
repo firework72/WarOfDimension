@@ -24,6 +24,20 @@ public class RegularPolyhedron12Enemy : Enemy
         base.MoveAlongPath();
     }
 
+    public override void TakeDamage(int damage)
+    {
+        if (Random.RandomRange(0.0f, 1.0f) < 0.3f) // 30% chance to dodge the attack
+        {
+            Debug.Log("Attack dodged!");
+            return;
+        }
+        currentHP -= damage;
+        if (currentHP <= 0)
+        {
+            Die();
+        }
+    }
+
     protected override void Die()
     {
         base.Die();

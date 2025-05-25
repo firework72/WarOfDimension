@@ -90,7 +90,14 @@ public class Tower : MonoBehaviour
                 GameManager.Instance.gold -= upgradeCost;
                 Vector3 pos = transform.position;
                 GameObject newTower = Instantiate(nextTower, pos, Quaternion.identity); // Instantiate the firePoint at the tower's position
-                newTower.GetComponent<Tower>().damage = damage;
+                if (newTower.GetComponent<Tower>() is StarTower)
+                {
+                    newTower.GetComponent<Tower>().damage = damage * 10;
+                }
+                else
+                {
+                    newTower.GetComponent<Tower>().damage = damage;
+                }
                 newTower.GetComponent<Tower>().towerLvl = towerLvl;
                 newTower.GetComponent<Tower>().upgradeCost *= towerLvl; // Increase the upgrade cost for the next level
                 Destroy(gameObject); // Destroy the current tower

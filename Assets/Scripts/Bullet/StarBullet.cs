@@ -2,43 +2,39 @@ using UnityEngine;
 
 public class StarBullet : Bullet
 {
-    public Transform targetTransform;
     public float dropDuration = 1f;
     public float aoeRadius = 2f;
     public LayerMask enemyLayer;
 
-    private Vector3 startPosition;
-    private Vector3 endPosition;
-    private float timer = 0f;
-    private bool initialized = false;
+    public Transform targetTransform;
+    public Vector3 targetTransformPos;
 
-    public void SetTarget(Enemy enemy, int dmg)
+    public override void SetTarget(Enemy enemy, int dmg)
     {
         base.SetTarget(enemy, dmg);
-        this.targetTransform = enemy.gameObject.transform;
-        transform.position = targetTransform.position + Vector3.up * 10f;
-        
-        startPosition = targetTransform.position + Vector3.up * 10f;
-        endPosition = targetTransform.position;
-        transform.position = startPosition;
-        timer = 0f;
-        initialized = true;
-
-        Debug.Log("StarBullet Spawned, Target : " + enemy.GetType().ToString());
+        if (enemy == null || target == null)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        targetTransform = target.transform;
+        targetTransformPos = targetTransform.position;
+        speed = 3f;
     }
 
-    void Update()
+    public override void Update()
     {
-        if (!initialized) return;
+        // 초마다 270도씩 회전하는 애니메이션 적용
+        transform.rotation = Quaternion.Euler(0, 0, transform.rotation.eulerAngles.z + 270f * Time.deltaTime);
 
-        timer += Time.deltaTime;
-        float t = Mathf.Clamp01(timer / dropDuration);
-        transform.position = Vector3.Lerp(startPosition, endPosition, t);
+        Vector3 dir = targetTransformPos - transform.position;
+        transform.position += dir.normalized * (speed * Vector3.Distance(transform.position, targetTransformPos)) * Time.deltaTime;
 
-        if (t >= 1f)
+        if (Vector3.Distance(transform.position, targetTransformPos) < 0.1f)
         {
-            // 광역 대미지
-            Collider[] hitEnemies = Physics.OverlapSphere(endPosition, aoeRadius, enemyLayer);
+            // 광역 대미지  
+            Collider[] hitEnemies = Physics.OverlapSphere(transform.position, aoeRadius, enemyLayer);
+            Debug.Log(hitEnemies.Length + " enemies hit.");
             foreach (var col in hitEnemies)
             {
                 Enemy enemy = col.GetComponent<Enemy>();
@@ -47,17 +43,15 @@ public class StarBullet : Bullet
                     enemy.TakeDamage(damage);
                 }
             }
-            Instantiate(hitEffect, endPosition, Quaternion.identity);
+
+            Instantiate(hitEffect, transform.position, Quaternion.identity);
             Destroy(gameObject);
         }
     }
 
     void OnDrawGizmosSelected()
     {
-        if (targetTransform != null)
-        {
-            Gizmos.color = Color.red;
-            Gizmos.DrawWireSphere(targetTransform.position, aoeRadius);
-        }
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(targetTransformPos, aoeRadius);
     }
 }

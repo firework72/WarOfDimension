@@ -16,7 +16,7 @@ TagManager:
   - 
   - Water
   - UI
-  - 
+  - Enemy
   - 
   - 
   - 
@@ -55,8 +55,14 @@ TagManager:
   - name: Objects
     uniqueID: 1557423941
     locked: 0
+  - name: HpText
+    uniqueID: 896783405
+    locked: 0
   - name: Bullet
     uniqueID: 1674581123
+    locked: 0
+  - name: UIText
+    uniqueID: 2214436677
     locked: 0
   m_RenderingLayers:
   - Default

@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 5468194538935645467}
   - component: {fileID: 9129176203557500078}
   - component: {fileID: 6642725999837337385}
+  - component: {fileID: -4185303238160520478}
   m_Layer: 5
   m_Name: ErrorText
   m_TagString: Untagged
@@ -36,7 +37,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 1500, y: 50}
+  m_SizeDelta: {x: 1500, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5468194538935645467
 CanvasRenderer:
@@ -93,8 +94,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 56
-  m_fontSizeBase: 56
+  m_fontSize: 50
+  m_fontSizeBase: 50
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -149,3 +150,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ff8d5955c2d0c64d9b094e27eece037, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!210 &-4185303238160520478
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7644332892198896203}
+  m_Enabled: 1
+  m_SortingLayerID: -2080530619
+  m_SortingLayer: 6
+  m_SortingOrder: 0
+  m_SortAtRoot: 0

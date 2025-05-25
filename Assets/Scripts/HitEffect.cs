@@ -4,7 +4,7 @@ public class HitEffect : MonoBehaviour
 {
     void Awake()
     {
-        Invoke("DestroyEffect", 1.0f);
+        Invoke("DestroyEffect", 1.5f);
     }
 
     void DestroyEffect()
