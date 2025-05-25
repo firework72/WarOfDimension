@@ -14,6 +14,9 @@ public class UIManager : MonoBehaviour
     public GameObject gachaTower; // �̱�� ȹ���� Ÿ��
 
     public Button gachaButton; // �̱� ��ư
+
+    public GameObject gemImage;
+    public GameObject upgradeCostText;
     public Button upgradeButton; // ���׷��̵� ��ư
     public Button removeButton; // ���� ��ư
 
@@ -81,6 +84,19 @@ public class UIManager : MonoBehaviour
     public void ShowTowerUpgradeUI(Tower tower)
     {
         selectedTower = tower;
+
+        if (tower is StarTower)
+        {
+            gemImage.SetActive(false);
+            upgradeCostText.SetActive(false);
+            upgradeButton.interactable = false;
+        }
+        else
+        {
+            gemImage.SetActive(true);
+            upgradeCostText.SetActive(true);
+            upgradeButton.interactable = true;
+        }
 
         towerImage.GetComponent<Image>().sprite = tower.GetComponent<SpriteRenderer>().sprite;
         towerLvlText.GetComponent<TextMeshProUGUI>().text = "Lv." + tower.towerLvl.ToString();

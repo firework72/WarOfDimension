@@ -5,7 +5,7 @@ public class SquareTower : Tower
 {
     void Awake()
     {
-        attackRange = 5.0f;
+        attackRange = 1.9f;
         fireRate = 4.0f;
         damage = 1 * towerLvl;
         targetCnt = 4;

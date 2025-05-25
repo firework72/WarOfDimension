@@ -67,8 +67,13 @@ public class Tower : MonoBehaviour
         {
             GameObject bullet = Instantiate(bulletPrefab, firePoint.position, Quaternion.identity);
             bullet.GetComponent<Bullet>().SetTarget(enemy, damage);
+
         }
-        
+
+        if (target.Count > 0)
+        {
+            SoundManager.Instance.PlayFireSound();
+        }
     }
 
     private void OnMouseOver()
@@ -77,6 +82,7 @@ public class Tower : MonoBehaviour
         {
             UIManager.Instance.ShowTowerUpgradeUI(this);
             Debug.Log("Tower clicked: " + gameObject.name);
+            SoundManager.Instance.PlayClickSound();
         }
     }
 
@@ -105,6 +111,7 @@ public class Tower : MonoBehaviour
             else
             {
                 Debug.Log("Not enough gold to upgrade!");
+                ErrorMessageManager.Instance.ShowErrorMessage("You don't have enough gold");
             }
         }
         else

@@ -5,7 +5,7 @@ public class CircleTower : Tower
 {
     void Awake()
     {
-        attackRange = 3.0f;
+        attackRange = 1.5f;
         fireRate = 1.0f;
         damage = 1 * towerLvl;
         targetCnt = 1;

@@ -5,7 +5,7 @@ public class HexagonTower : Tower
 {
     void Awake()
     {
-        attackRange = 7.0f;
+        attackRange = 2.3f;
         fireRate = 6.0f;
         damage = 1 * towerLvl;
         targetCnt = 6;

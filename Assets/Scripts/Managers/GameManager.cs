@@ -59,17 +59,17 @@ public class GameManager : MonoBehaviour
 
     private int curTargetEnemy = 0;
     private int curTargetEnemySpawnCnt = 0;
-    public int gold; // 현재 골드
-    public int exp; // 현재 경험치
+    public int gold = 500; // 현재 골드
+    public int exp = 0; // 현재 경험치
 
     public int curStage = -1; // 현재 진행 중인 스테이지
-    public float remainTime; // 남은 시간 (0이 되면 웨이브가 증가함)
+    public float remainTime = 15.0f; // 남은 시간 (0이 되면 웨이브가 증가함)
 
-    public int lvl; // 현재 게임 레벨 (경험치로 상승함)
+    public int lvl = 1; // 현재 게임 레벨 (경험치로 상승함)
 
-    public int nexusHp; // 넥서스(Enemy의 최종 타겟)의 체력
+    public int nexusHp = 100; // 넥서스(Enemy의 최종 타겟)의 체력
 
-    public int maxNexusHp;
+    public int maxNexusHp = 100;
 
 
     // 게임에서 업그레이드 가능한 전체적인 능력. 업그레이드 시 해당 변수를 변경시키고, 기본값에 이 값을 곱해서 최종 능력치를 결정한다.
@@ -78,22 +78,33 @@ public class GameManager : MonoBehaviour
     public float expBonus = 1.0f;
     public float goldBonus = 1.0f;
 
-    public int towerInstallCost = 10;
+    public int towerInstallCost = 100;
     public GameObject installTower; // 설치할 타워
 
     public int damageBonusLvl, fireRateBonusLvl, expBonusLvl, goldBonusLvl;
 
     void Start()
     {
-        gold = 100; // test code
+        gold = 200; // test code
+        exp = 0;
         curStage = -1;
+        lvl = 1;
         damageBonusLvl = 1;
         fireRateBonusLvl = 1;
         expBonusLvl = 1;
         goldBonusLvl = 1;
 
+        damageBonus = 1.0f;
+        fireRateBonus = 1.0f;
+        expBonus = 1.0f;
+        goldBonus = 1.0f;
+
+        towerInstallCost = 100;
+
         maxNexusHp = 100;
         nexusHp = maxNexusHp;
+
+        SoundManager.Instance.PlayMainTheme();
     }
 
     void Update()
@@ -122,16 +133,17 @@ public class GameManager : MonoBehaviour
             mousePosition.z = 0; // 2D 좌표이므로 z 값을 0으로 설정
             GameObject newTower = Instantiate(installTower, mousePosition, Quaternion.identity);
             gold -= towerInstallCost;
-            newTower.GetComponent<Tower>().towerLvl = lvl; // 타워 레벨 초기화
+            newTower.GetComponent<Tower>().towerLvl = Random.Range(1, lvl + 1); // 타워 레벨 초기화
             newTower.GetComponent<Tower>().damage = 1 * newTower.GetComponent<Tower>().towerLvl; // 타워의 공격력 초기화
             newTower.GetComponent<Tower>().upgradeCost = 50 * newTower.GetComponent<Tower>().towerLvl; // 타워의 업그레이드 비용 초기화
             Debug.Log("Tower installed");
 
-            towerInstallCost += 10; // 타워 설치 비용 증가
+            towerInstallCost += 100; // 타워 설치 비용 증가
         }
         else
         {
             Debug.Log("You don't have enough golds");
+            ErrorMessageManager.Instance.ShowErrorMessage("You don't have enough gold (Cost : " + towerInstallCost.ToString() + " Gems)");
         }
     }
 
@@ -181,8 +193,9 @@ public class GameManager : MonoBehaviour
         nexusHp -= damage;
         if (nexusHp <= 0)
         {
-            // TODO : 게임 오버
-            // SceneManager.LoadScene("GameOverScene");
+            PlayerPrefs.SetInt("CurScore", curStage + 1);
+            SoundManager.Instance.StopAllSounds();
+            SceneManager.LoadScene("GameOverScene");
         }
     }
 
@@ -214,6 +227,7 @@ public class GameManager : MonoBehaviour
         else
         {
             Debug.Log("You don't have enough gold");
+            ErrorMessageManager.Instance.ShowErrorMessage("You don't have enough gold");
         }
     }
 
@@ -228,6 +242,7 @@ public class GameManager : MonoBehaviour
         else
         {
             Debug.Log("You don't have enough gold");
+            ErrorMessageManager.Instance.ShowErrorMessage("You don't have enough gold");
         }
     }
 
@@ -242,6 +257,7 @@ public class GameManager : MonoBehaviour
         else
         {
             Debug.Log("You don't have enough gold");
+            ErrorMessageManager.Instance.ShowErrorMessage("You don't have enough gold");
         }
     }
 
@@ -256,6 +272,7 @@ public class GameManager : MonoBehaviour
         else
         {
             Debug.Log("You don't have enough gold");
+            ErrorMessageManager.Instance.ShowErrorMessage("You don't have enough gold");
         }
     }
 

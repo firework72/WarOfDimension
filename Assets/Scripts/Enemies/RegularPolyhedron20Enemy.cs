@@ -34,11 +34,13 @@ public class RegularPolyhedron20Enemy : Enemy
             newEnemy.GetComponent<Enemy>().currentHP = maxHP * 3 / 5;
         }
 
-        // °ñµå Áö±Þ
+        // ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         GameManager.Instance.AddGold(rewardGold);
         GameManager.Instance.AddExp(rewardExp);
 
-        // ÆÄ±«
+        SoundManager.Instance.PlayDieSound();
+
+        // ï¿½Ä±ï¿½
         Destroy(gameObject);
     }
 }

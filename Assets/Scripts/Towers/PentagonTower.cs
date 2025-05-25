@@ -5,7 +5,7 @@ public class PentagonTower : Tower
 {
     void Awake()
     {
-        attackRange = 6.0f;
+        attackRange = 2.1f;
         fireRate = 5.0f;
         damage = 1 * towerLvl;
         targetCnt = 5;

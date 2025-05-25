@@ -26,6 +26,7 @@ public class RegularPolyhedron12Enemy : Enemy
 
     public override void TakeDamage(int damage)
     {
+        SoundManager.Instance.PlayHitSound();
         if (Random.RandomRange(0.0f, 1.0f) < 0.3f) // 30% chance to dodge the attack
         {
             Debug.Log("Attack dodged!");

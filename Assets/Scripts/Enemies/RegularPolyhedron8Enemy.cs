@@ -27,7 +27,7 @@ public class RegularPolyhedron8Enemy : Enemy
 
     protected override void Die()
     {
-        // »ç¸Á ½Ã 4¸éÃ¼ Àû 2¸¶¸® ¼ÒÈ¯
+        // ï¿½ï¿½ï¿½ ï¿½ï¿½ 4ï¿½ï¿½Ã¼ ï¿½ï¿½ 2ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¯
         for (int i = 0; i < 2; i++)
         {
             GameObject newEnemy = Instantiate(regularPolyhedron4Enemy, transform.position, Quaternion.identity);
@@ -35,11 +35,13 @@ public class RegularPolyhedron8Enemy : Enemy
             newEnemy.GetComponent<Enemy>().currentHP = maxHP * 2 / 3;
         }
 
-        // °ñµå Áö±Þ
+        // ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         GameManager.Instance.AddGold(rewardGold);
         GameManager.Instance.AddExp(rewardExp);
 
-        // ÆÄ±«
+        SoundManager.Instance.PlayDieSound();
+
+        // ï¿½Ä±ï¿½
         Destroy(gameObject);
     }
 }

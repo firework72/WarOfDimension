@@ -63,6 +63,7 @@ public class Enemy : MonoBehaviour
     public virtual void TakeDamage(int damage)
     {
         currentHP -= damage;
+        SoundManager.Instance.PlayHitSound();
         if (currentHP <= 0)
         {
             Die();
@@ -75,6 +76,7 @@ public class Enemy : MonoBehaviour
         GameManager.Instance.AddGold(rewardGold);
         GameManager.Instance.AddExp(rewardExp);
 
+        SoundManager.Instance.PlayDieSound();
         // 파괴
         Destroy(gameObject);
     }

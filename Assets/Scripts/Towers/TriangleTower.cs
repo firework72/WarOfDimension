@@ -5,7 +5,7 @@ public class TriangleTower : Tower
 {
     void Awake()
     {
-        attackRange = 4.0f;
+        attackRange = 1.7f;
         fireRate = 3.0f;
         damage = 1 * towerLvl;
         targetCnt = 3;
