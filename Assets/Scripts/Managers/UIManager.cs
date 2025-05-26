@@ -102,6 +102,7 @@ public class UIManager : MonoBehaviour
         towerLvlText.GetComponent<TextMeshProUGUI>().text = "Lv." + tower.towerLvl.ToString();
         towerUpgradeUI.transform.Find("UpgradeCostText").GetComponent<TextMeshProUGUI>().text = tower.upgradeCost.ToString();
 
+        Debug.Log("Selected Tower: " + tower.gameObject.name);
         towerUpgradeUI.SetActive(true);
     }
 

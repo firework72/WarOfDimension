@@ -21,41 +21,43 @@ public class GameManager : MonoBehaviour
     public GameObject[] enemy; // 적 프리팹들
 
     // 웨이브에 따라 스폰되는 적의 수 (0~5번째 값은 적의 종류, 6번째 값은 보스 여부)
-    public static int[][] spawnData = new int[30][]
-    {
-       new int[] {5, 0, 0, 0, 0, 0, 0}, // 웨이브 1  
-       new int[] {5, 5, 0, 0, 0, 0, 0}, // 웨이브 2  
-       new int[] {5, 5, 5, 0, 0, 0, 0}, // 웨이브 3  
-       new int[] {5, 5, 5, 5, 0, 0, 0}, // 웨이브 4  
-       new int[] {5, 5, 5, 5, 5, 0, 0}, // 웨이브 5  
-       new int[] {5, 5, 5, 5, 5, 5, 0}, // 웨이브 6  
-       new int[] {10, 5, 5, 5, 5, 5, 0}, // 웨이브 7  
-       new int[] {10, 10, 5, 5, 5, 5, 0}, // 웨이브 8  
-       new int[] {10, 10, 10, 5, 5, 5, 0}, // 웨이브 9  
-       new int[] {10, 10, 10, 10, 5, 5, 0}, // 웨이브 10  
-       new int[] {10, 10, 10, 10, 10, 5, 0}, // 웨이브 11  
-       new int[] {10, 10, 10, 10, 10, 10, 0}, // 웨이브 12  
-       new int[] {15, 10, 10, 10, 10, 10, 0}, // 웨이브 13  
-       new int[] {15, 15, 10, 10, 10, 10, 0}, // 웨이브 14  
-       new int[] {15, 15, 15, 10, 10, 10, 0}, // 웨이브 15  
-       new int[] {15, 15, 15, 15, 10, 10, 0}, // 웨이브 16  
-       new int[] {15, 15, 15, 15, 15, 10, 0}, // 웨이브 17  
-       new int[] {15, 15, 15, 15, 15, 15, 0}, // 웨이브 18  
-       new int[] {20, 15, 15, 15, 15, 15, 0}, // 웨이브 19  
-       new int[] {20, 20, 15, 15, 15, 15, 0}, // 웨이브 20  
-       new int[] {20, 20, 20, 15, 15, 15, 0}, // 웨이브 21  
-       new int[] {20, 20, 20, 20, 15, 15, 0}, // 웨이브 22  
-       new int[] {20, 20, 20, 20, 20, 15, 0}, // 웨이브 23  
-       new int[] {20, 20, 20, 20, 20, 20, 0}, // 웨이브 24  
-       new int[] {25, 20, 20, 20, 20, 20, 0}, // 웨이브 25  
-       new int[] {25, 25, 20, 20, 20, 20, 0}, // 웨이브 26  
-       new int[] {25, 25, 25, 20, 20, 20, 0}, // 웨이브 27  
-       new int[] {25, 25, 25, 25, 20, 20, 0}, // 웨이브 28  
-       new int[] {25, 25, 25, 25, 25, 20, 0}, // 웨이브 29
-       new int[] {0, 0, 0, 0, 0, 0, 1}  // 웨이브 30  
-    };
+    // public static int[][] spawnData = new int[30][]
+    // {
+    //    new int[] {5, 0, 0, 0, 0, 0, 0}, // 웨이브 1  
+    //    new int[] {5, 5, 0, 0, 0, 0, 0}, // 웨이브 2  
+    //    new int[] {5, 5, 5, 0, 0, 0, 0}, // 웨이브 3  
+    //    new int[] {5, 5, 5, 5, 0, 0, 0}, // 웨이브 4  
+    //    new int[] {5, 5, 5, 5, 5, 0, 0}, // 웨이브 5  
+    //    new int[] {5, 5, 5, 5, 5, 5, 0}, // 웨이브 6  
+    //    new int[] {10, 5, 5, 5, 5, 5, 0}, // 웨이브 7  
+    //    new int[] {10, 10, 5, 5, 5, 5, 0}, // 웨이브 8  
+    //    new int[] {10, 10, 10, 5, 5, 5, 0}, // 웨이브 9  
+    //    new int[] {10, 10, 10, 10, 5, 5, 0}, // 웨이브 10  
+    //    new int[] {10, 10, 10, 10, 10, 5, 0}, // 웨이브 11  
+    //    new int[] {10, 10, 10, 10, 10, 10, 0}, // 웨이브 12  
+    //    new int[] {15, 10, 10, 10, 10, 10, 0}, // 웨이브 13  
+    //    new int[] {15, 15, 10, 10, 10, 10, 0}, // 웨이브 14  
+    //    new int[] {15, 15, 15, 10, 10, 10, 0}, // 웨이브 15  
+    //    new int[] {15, 15, 15, 15, 10, 10, 0}, // 웨이브 16  
+    //    new int[] {15, 15, 15, 15, 15, 10, 0}, // 웨이브 17  
+    //    new int[] {15, 15, 15, 15, 15, 15, 0}, // 웨이브 18  
+    //    new int[] {20, 15, 15, 15, 15, 15, 0}, // 웨이브 19  
+    //    new int[] {20, 20, 15, 15, 15, 15, 0}, // 웨이브 20  
+    //    new int[] {20, 20, 20, 15, 15, 15, 0}, // 웨이브 21  
+    //    new int[] {20, 20, 20, 20, 15, 15, 0}, // 웨이브 22  
+    //    new int[] {20, 20, 20, 20, 20, 15, 0}, // 웨이브 23  
+    //    new int[] {20, 20, 20, 20, 20, 20, 0}, // 웨이브 24  
+    //    new int[] {25, 20, 20, 20, 20, 20, 0}, // 웨이브 25  
+    //    new int[] {25, 25, 20, 20, 20, 20, 0}, // 웨이브 26  
+    //    new int[] {25, 25, 25, 20, 20, 20, 0}, // 웨이브 27  
+    //    new int[] {25, 25, 25, 25, 20, 20, 0}, // 웨이브 28  
+    //    new int[] {25, 25, 25, 25, 25, 20, 0}, // 웨이브 29
+    //    new int[] {0, 0, 0, 0, 0, 0, 1}  // 웨이브 30  
+    // };
+    
+    public static int[] spawnData = new int[7] {0, 0, 0, 0, 0, 0, 0};
 
-    private int[] spawnedCnt = new int[7] {0, 0, 0, 0, 0, 0, 0 }; // 각 웨이브에서 스폰된 적의 수 (0~5번째 값은 적의 종류, 6번째 값은 보스 여부)
+    private int[] spawnedCnt = new int[7] { 0, 0, 0, 0, 0, 0, 0 }; // 각 웨이브에서 스폰된 적의 수 (0~5번째 값은 적의 종류, 6번째 값은 보스 여부)
 
     private int curTargetEnemy = 0;
     private int curTargetEnemySpawnCnt = 0;
@@ -104,6 +106,8 @@ public class GameManager : MonoBehaviour
         maxNexusHp = 100;
         nexusHp = maxNexusHp;
 
+        //UIManager.Instance.towerUpgradeUI.SetActive(false);
+
         SoundManager.Instance.PlayMainTheme();
     }
 
@@ -115,6 +119,24 @@ public class GameManager : MonoBehaviour
         {
             curStage++;
             remainTime = 15f;
+
+            if (curStage % 30 == 29)
+            {
+                for (int i = 0; i < 6; i++)
+                {
+                    spawnData[i] = 0; // 보스 웨이브에서는 모든 적의 수를 0으로 설정
+                }
+                spawnData[6] = 1; // 보스 웨이브에서는 보스만 스폰
+            }
+            else
+            {
+                // 다음 웨이브의 적 스폰 데이터 설정
+                for (int i = 0; i < 6; i++)
+                {
+                    spawnData[i] = ((curStage + (6 - i)) / 6) * 5; // 예시로, 웨이브가 5의 배수일 때마다 적의 수를 증가시킴
+                }
+                spawnData[6] = 0; // 보스 웨이브가 아닐 경우 보스는 스폰하지 않음
+            }
 
             for (int i = 0; i < 7; i++)
             {
@@ -155,10 +177,10 @@ public class GameManager : MonoBehaviour
 
         for (int i = 0; i < 7; i++) 
         {
-            totalEnemyCnt += spawnData[curStage % 30][i];
+            totalEnemyCnt += spawnData[i];
         }
 
-        while (curTargetEnemy < 7 && spawnedCnt[curTargetEnemy] >= spawnData[curStage % 30][curTargetEnemy])
+        while (curTargetEnemy < 7 && spawnedCnt[curTargetEnemy] >= spawnData[curTargetEnemy])
         {
             curTargetEnemy++;
         }
@@ -169,11 +191,11 @@ public class GameManager : MonoBehaviour
         }
 
         GameObject newEnemy = Instantiate(enemy[curTargetEnemy]);
-        newEnemy.GetComponent<Enemy>().maxHP = (int)(newEnemy.GetComponent<Enemy>().maxHP * Mathf.Pow(1.03f, curStage));
+        newEnemy.GetComponent<Enemy>().maxHP = (int)(newEnemy.GetComponent<Enemy>().maxHP * Mathf.Pow(1.07f, curStage));
         newEnemy.GetComponent<Enemy>().currentHP = newEnemy.GetComponent<Enemy>().maxHP;
         spawnedCnt[curTargetEnemy]++;
 
-        Invoke("SpawnEnemy", 14f / totalEnemyCnt);
+        Invoke("SpawnEnemy", 12f / totalEnemyCnt);
     }
     
     public void AddGold(int rewardGold)

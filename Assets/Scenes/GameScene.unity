@@ -2731,7 +2731,7 @@ MonoBehaviour:
   - {fileID: 6841542783614335306, guid: 4fcf7661e9f2d1243bf0a9fc4e1d344f, type: 3}
   - {fileID: 6841542783614335306, guid: 5dd17cdfdc7cf3f439dfe92d94d80015, type: 3}
   - {fileID: 6841542783614335306, guid: 703316907980a3746bbc6047ce55ac31, type: 3}
-  - {fileID: 0}
+  - {fileID: 6841542783614335306, guid: a32b3693ee2484d3495322795e372786, type: 3}
   gold: 0
   exp: 0
   curStage: 0
@@ -6952,8 +6952,8 @@ MonoBehaviour:
   selectedTower: {fileID: 0}
   gachaTower: {fileID: 0}
   gachaButton: {fileID: 0}
-  gemImage: {fileID: 0}
-  upgradeCostText: {fileID: 0}
+  gemImage: {fileID: 518340134}
+  upgradeCostText: {fileID: 1502370390}
   upgradeButton: {fileID: 1899992050}
   removeButton: {fileID: 284913286}
   towerUpgradeUI: {fileID: 1551610190}
