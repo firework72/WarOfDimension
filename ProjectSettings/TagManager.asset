@@ -55,6 +55,9 @@ TagManager:
   - name: Objects
     uniqueID: 1557423941
     locked: 0
+  - name: BossObjects
+    uniqueID: 2405870349
+    locked: 0
   - name: HpText
     uniqueID: 896783405
     locked: 0
