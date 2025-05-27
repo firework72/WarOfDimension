@@ -106,7 +106,7 @@ public class GameManager : MonoBehaviour
         maxNexusHp = 100;
         nexusHp = maxNexusHp;
 
-        //UIManager.Instance.towerUpgradeUI.SetActive(false);
+        UIManager.Instance.towerUpgradeUI.SetActive(false);
 
         SoundManager.Instance.PlayMainTheme();
     }

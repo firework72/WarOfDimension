@@ -13,7 +13,7 @@ public class Enemy : MonoBehaviour
     public int rewardExp; // 처치 시 획득 경험치
 
     public Transform[] pathPoints; // 이동 경로
-    private int currentPathIndex = 0; // 현재 위치
+    public int currentPathIndex = 0; // 현재 위치
 
     public float moveDistance = 0.0f; // 현재까지 이동한 거리
 

@@ -8,9 +8,9 @@ public class MainMenu : MonoBehaviour
         SceneManager.LoadScene("GameScene");    // "GameScene"은 실제 게임 씬 이름        
     }
 
-    public void OpenOptions()
+    public void OpenTutorialScene()
     {
-        Debug.Log("옵션 창 열기");  // 옵션 메뉴 UI 구현 예정
+        SceneManager.LoadScene("TutorialScene");
     }
 
     public void QuitGame()

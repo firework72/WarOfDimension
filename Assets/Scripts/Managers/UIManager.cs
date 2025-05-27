@@ -62,7 +62,7 @@ public class UIManager : MonoBehaviour
     {
         goldText.GetComponent<TextMeshProUGUI>().text = GameManager.Instance.gold.ToString();
         lvlText.GetComponent<TextMeshProUGUI>().text = "Lv." + GameManager.Instance.lvl.ToString();
-        nexusHpText.GetComponent<TextMeshProUGUI>().text = GameManager.Instance.nexusHp.ToString();
+        nexusHpText.GetComponent<TextMeshProUGUI>().text = "HP : " + GameManager.Instance.nexusHp.ToString();
         curStageText.GetComponent<TextMeshProUGUI>().text = "Wave " + (GameManager.Instance.curStage + 1).ToString();
         remainTimeText.GetComponent<TextMeshProUGUI>().text = GameManager.Instance.remainTime.ToString("F1") + "s";
 

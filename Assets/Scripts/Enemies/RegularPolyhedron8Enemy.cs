@@ -32,6 +32,9 @@ public class RegularPolyhedron8Enemy : Enemy
         {
             Debug.Log("Spawning RegularPolyhedron4Enemy");
             GameObject newEnemy = Instantiate(regularPolyhedron4Enemy, transform.position, Quaternion.identity);
+            newEnemy.GetComponent<Enemy>().currentPathIndex = currentPathIndex;
+            newEnemy.GetComponent<Enemy>().moveDistance = moveDistance;
+            newEnemy.transform.position = transform.position;
             newEnemy.GetComponent<Enemy>().maxHP = maxHP * 2 / 3;
             newEnemy.GetComponent<Enemy>().currentHP = maxHP * 2 / 3;
         }

@@ -3,6 +3,7 @@ using UnityEngine;
 public class SoundManager : MonoBehaviour
 {
     public AudioSource audioSource;
+    public AudioSource mainThemeAudioSource;
     public AudioClip audioClipMainTheme;
     public AudioClip audioClipClick;
     public AudioClip audioClipDie;
@@ -33,9 +34,9 @@ public class SoundManager : MonoBehaviour
     {
         if (audioClipMainTheme != null)
         {
-            audioSource.clip = audioClipMainTheme;
-            audioSource.loop = true;
-            audioSource.Play();
+            mainThemeAudioSource.clip = audioClipMainTheme;
+            mainThemeAudioSource.loop = true;
+            mainThemeAudioSource.Play();
         }
     }
     public void PlayClickSound()
@@ -69,5 +70,6 @@ public class SoundManager : MonoBehaviour
     public void StopAllSounds()
     {
         audioSource.Stop();
+        mainThemeAudioSource.Stop();
     }
 }
