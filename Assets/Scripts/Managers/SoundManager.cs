@@ -29,7 +29,17 @@ public class SoundManager : MonoBehaviour
             Destroy(gameObject);
         }
     }
-    
+
+    void Start()
+    {
+        // PlayerPrefs에서 음소거 상태 불러오기
+        bool isMuted = PlayerPrefs.GetInt("MuteState", 0) == 1;
+        if (mainThemeAudioSource != null)
+        {
+            mainThemeAudioSource.mute = isMuted;
+        }
+    }
+
     public void PlayMainTheme()
     {
         if (audioClipMainTheme != null)
@@ -71,5 +81,17 @@ public class SoundManager : MonoBehaviour
     {
         audioSource.Stop();
         mainThemeAudioSource.Stop();
+    }
+
+    public void ToggleBGM()
+    {
+        if (mainThemeAudioSource == null) return;
+
+        // 현재 상태 반전
+        mainThemeAudioSource.mute = !mainThemeAudioSource.mute;
+
+        // PlayerPrefs에 상태 저장
+        PlayerPrefs.SetInt("MuteState", mainThemeAudioSource.mute ? 1 : 0);
+        PlayerPrefs.Save();
     }
 }
