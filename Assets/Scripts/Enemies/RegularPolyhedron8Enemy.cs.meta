@@ -1,0 +1,13 @@
+fileFormatVersion: 2
+guid: 03dc17c5c61906b469d0af4f12fe0848
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - hpText: {instanceID: 0}
+  - regularPolyhedron4Enemy: {fileID: 6841542783614335306, guid: 4a9e4ccee9ce24345a2fbc6a67a40aaf, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

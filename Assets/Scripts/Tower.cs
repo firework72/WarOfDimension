@@ -3,10 +3,12 @@ using System.Collections.Generic;
 
 public class Tower : MonoBehaviour
 {
+    public int towerLvl;
     public float attackRange = 5f;      // 공격 범위
     public float fireRate = 1f;         // 초당 공격 횟수
     public int damage = 10;             // 한 발당 데미지
     public int upgradeCost = 50;        // 업그레이드 비용
+    public GameObject nextTower;        // 업그레이드 시 다음 레벨의 타워
 
     private float fireCooldown = 0f;
 
@@ -14,6 +16,7 @@ public class Tower : MonoBehaviour
 
     public Transform firePoint;         // 발사 위치
     public GameObject bulletPrefab;     // 발사할 탄환
+    public UIManager uiManager; // UI 매니저
 
     protected virtual void Update()
     {
@@ -23,8 +26,9 @@ public class Tower : MonoBehaviour
         if (target != null && fireCooldown <= 0f)
         {
             Attack(target);
-            fireCooldown = 1f / fireRate;
+            fireCooldown = 1f / (fireRate * GameManager.Instance.fireRateBonus);
         }
+
     }
 
     // 공격해야 할 적을 탐색하는 함수 (기본적으로 가장 멀리 간 타겟을 공격)
@@ -43,6 +47,7 @@ public class Tower : MonoBehaviour
             }
         }
 
+        // 범위 내 있는 적들 중 가장 멀리 간 적을 몇 개 골라내기 위해 moveDistance를 기준으로 내림차순 정렬한다.
         targetEnemies.Sort((a, b) => b.moveDistance.CompareTo(a.moveDistance));
 
         List<Enemy> returnValue = new List<Enemy>();
@@ -62,8 +67,56 @@ public class Tower : MonoBehaviour
         {
             GameObject bullet = Instantiate(bulletPrefab, firePoint.position, Quaternion.identity);
             bullet.GetComponent<Bullet>().SetTarget(enemy, damage);
+
         }
-        
+
+        if (target.Count > 0)
+        {
+            SoundManager.Instance.PlayFireSound();
+        }
     }
 
+    private void OnMouseOver()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            UIManager.Instance.ShowTowerUpgradeUI(this);
+            Debug.Log("Tower clicked: " + gameObject.name);
+            SoundManager.Instance.PlayClickSound();
+        }
+    }
+
+    // 타워를 업그레이드하는 함수
+    public void Upgrade()
+    {
+        if (nextTower != null)
+        {
+            if (GameManager.Instance.gold >= upgradeCost)
+            {
+                GameManager.Instance.gold -= upgradeCost;
+                Vector3 pos = transform.position;
+                GameObject newTower = Instantiate(nextTower, pos, Quaternion.identity); // Instantiate the firePoint at the tower's position
+                if (newTower.GetComponent<Tower>() is StarTower)
+                {
+                    newTower.GetComponent<Tower>().damage = damage * 10;
+                }
+                else
+                {
+                    newTower.GetComponent<Tower>().damage = damage;
+                }
+                newTower.GetComponent<Tower>().towerLvl = towerLvl;
+                newTower.GetComponent<Tower>().upgradeCost *= towerLvl; // Increase the upgrade cost for the next level
+                Destroy(gameObject); // Destroy the current tower
+            }
+            else
+            {
+                Debug.Log("Not enough gold to upgrade!");
+                ErrorMessageManager.Instance.ShowErrorMessage("You don't have enough gold");
+            }
+        }
+        else
+        {
+            Debug.Log("No next tower available for upgrade!");
+        }
+    }
 }

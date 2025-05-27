@@ -2,8 +2,13 @@
 %TAG !u! tag:unity3d.com,2011:
 --- !u!78 &1
 TagManager:
-  serializedVersion: 2
-  tags: []
+  serializedVersion: 3
+  tags:
+  - Enemy
+  - Tower
+  - Bullet
+  - AttackRange
+  - Path
   layers:
   - Default
   - TransparentFX
@@ -11,7 +16,7 @@ TagManager:
   - 
   - Water
   - UI
-  - 
+  - Enemy
   - 
   - 
   - 
@@ -41,3 +46,23 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Background
+    uniqueID: 1076506841
+    locked: 0
+  - name: Load
+    uniqueID: 3506594525
+    locked: 0
+  - name: Objects
+    uniqueID: 1557423941
+    locked: 0
+  - name: HpText
+    uniqueID: 896783405
+    locked: 0
+  - name: Bullet
+    uniqueID: 1674581123
+    locked: 0
+  - name: UIText
+    uniqueID: 2214436677
+    locked: 0
+  m_RenderingLayers:
+  - Default
