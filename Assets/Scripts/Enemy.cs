@@ -60,12 +60,13 @@ public class Enemy : MonoBehaviour
             
     }
 
-    public virtual void TakeDamage(int damage)
+    public virtual void TakeDamage(int damageAmount)
     {
-        currentHP -= damage;
+        currentHP -= damageAmount;
         SoundManager.Instance.PlayHitSound();
         if (currentHP <= 0)
         {
+            currentHP = 0;
             Die();
         }
     }

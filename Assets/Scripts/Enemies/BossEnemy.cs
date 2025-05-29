@@ -12,6 +12,16 @@ public class BossEnemy : Enemy
         rewardExp = 1000;
 
         base.Awake();
+
+        // 보스 등장 시 UIManager를 통해 보스 전용 HP UI를 표시하고 초기화
+        if (UIManager.Instance != null)
+        {
+            UIManager.Instance.UpdateBossHpUI(currentHP, maxHP);
+        }
+        else
+        {
+            Debug.LogError("UIManager 인스턴스를 찾을 수 없습니다. Boss HP UI를 초기화할 수 없습니다.");
+        }
     }
 
     protected override void Update()
@@ -24,8 +34,31 @@ public class BossEnemy : Enemy
         base.MoveAlongPath();
     }
 
+    public override void TakeDamage(int damageAmount)
+    {
+        base.TakeDamage(damageAmount);
+
+        // UIManager를 통해 보스 HP UI 업데이트
+        if (UIManager.Instance != null)
+        {
+            if (currentHP > 0)
+            {
+                UIManager.Instance.UpdateBossHpUI(currentHP, maxHP);
+            }
+        }
+    }
+
     protected override void Die()
     {
+        if (UIManager.Instance != null)
+        {
+            UIManager.Instance.HideBossHpUI();
+        }
+        else
+        {
+            Debug.LogError("UIManager 인스턴스를 찾을 수 없습니다. Boss HP UI를 숨길 수 없습니다.");
+        }
+
         base.Die();
     }
 }
