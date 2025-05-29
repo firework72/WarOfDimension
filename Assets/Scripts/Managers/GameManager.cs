@@ -193,6 +193,20 @@ public class GameManager : MonoBehaviour
         GameObject newEnemy = Instantiate(enemy[curTargetEnemy]);
         newEnemy.GetComponent<Enemy>().maxHP = (int)(newEnemy.GetComponent<Enemy>().maxHP * Mathf.Pow(1.07f, curStage));
         newEnemy.GetComponent<Enemy>().currentHP = newEnemy.GetComponent<Enemy>().maxHP;
+
+        // 만약 소환된 적이 보스라면, 보스 HP UI를 활성화한다.
+        if (newEnemy.GetComponent<Enemy>() is BossEnemy)
+        {
+            // 보스 등장 시 UIManager를 통해 보스 전용 HP UI를 표시하고 초기화
+            if (UIManager.Instance != null)
+            {
+                UIManager.Instance.UpdateBossHpUI(newEnemy.GetComponent<Enemy>().currentHP, newEnemy.GetComponent<Enemy>().maxHP);
+            }
+            else
+            {
+                Debug.LogError("UIManager 인스턴스를 찾을 수 없습니다. Boss HP UI를 초기화할 수 없습니다.");
+            }
+        }
         spawnedCnt[curTargetEnemy]++;
 
         Invoke("SpawnEnemy", 12f / totalEnemyCnt);
