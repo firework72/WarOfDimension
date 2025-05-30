@@ -36,6 +36,8 @@ public class UIManager : MonoBehaviour
     public GameObject goldInfoText;
     public GameObject goldUpgradeCostText;
 
+    public GameObject towerCreateGoldText;
+
     private static UIManager _instance;
 
     // 보스 HP UI 관련 변수
@@ -84,7 +86,7 @@ public class UIManager : MonoBehaviour
         expUpgradeCostText.GetComponent<TextMeshProUGUI>().text = (GameManager.Instance.expBonusLvl * 100).ToString();
         goldInfoText.GetComponent<TextMeshProUGUI>().text = "x" + (GameManager.Instance.goldBonus).ToString("F2");
         goldUpgradeCostText.GetComponent<TextMeshProUGUI>().text = (GameManager.Instance.goldBonusLvl * 100).ToString();
-
+        towerCreateGoldText.GetComponent<TextMeshProUGUI>().text = "Tower Create: " + (GameManager.Instance.towerInstallCost).ToString();
         // 업그레이드 버튼 텍스트 변경
 
 

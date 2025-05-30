@@ -54,8 +54,8 @@ public class GameManager : MonoBehaviour
     //    new int[] {25, 25, 25, 25, 25, 20, 0}, // 웨이브 29
     //    new int[] {0, 0, 0, 0, 0, 0, 1}  // 웨이브 30  
     // };
-    
-    public static int[] spawnData = new int[7] {0, 0, 0, 0, 0, 0, 0};
+
+    public static int[] spawnData = new int[7] { 0, 0, 0, 0, 0, 0, 0 };
 
     private int[] spawnedCnt = new int[7] { 0, 0, 0, 0, 0, 0, 0 }; // 각 웨이브에서 스폰된 적의 수 (0~5번째 값은 적의 종류, 6번째 값은 보스 여부)
 
@@ -175,7 +175,7 @@ public class GameManager : MonoBehaviour
 
         int totalEnemyCnt = 0;
 
-        for (int i = 0; i < 7; i++) 
+        for (int i = 0; i < 7; i++)
         {
             totalEnemyCnt += spawnData[i];
         }
@@ -211,7 +211,7 @@ public class GameManager : MonoBehaviour
 
         Invoke("SpawnEnemy", 12f / totalEnemyCnt);
     }
-    
+
     public void AddGold(int rewardGold)
     {
         gold += (int)(rewardGold * goldBonus);
@@ -312,5 +312,5 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    
+
 }
