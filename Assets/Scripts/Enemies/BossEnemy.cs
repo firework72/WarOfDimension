@@ -40,7 +40,7 @@ public class BossEnemy : Enemy
 
     protected override void Die()
     {
-
+        GameManager.Instance.nexusHp += 50; // 보스 처치 시 넥서스 HP 회복
         base.Die();
     }
 
