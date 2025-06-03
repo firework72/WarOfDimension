@@ -103,7 +103,7 @@ public class GameManager : MonoBehaviour
 
         towerInstallCost = 100;
 
-        maxNexusHp = 100;
+        maxNexusHp = 300;
         nexusHp = maxNexusHp;
 
         UIManager.Instance.towerUpgradeUI.SetActive(false);
@@ -133,7 +133,7 @@ public class GameManager : MonoBehaviour
                 // 다음 웨이브의 적 스폰 데이터 설정
                 for (int i = 0; i < 6; i++)
                 {
-                    spawnData[i] = ((curStage + (6 - i)) / 6) * 5; // 예시로, 웨이브가 5의 배수일 때마다 적의 수를 증가시킴
+                    spawnData[i] = Mathf.Min(((curStage + (6 - i)) / 6) * 3, 30); // 예시로, 웨이브가 5의 배수일 때마다 적의 수를 증가시킴
                 }
                 spawnData[6] = 0; // 보스 웨이브가 아닐 경우 보스는 스폰하지 않음
             }
@@ -244,8 +244,8 @@ public class GameManager : MonoBehaviour
         {
             exp -= 100 * lvl;
             lvl++;
-            maxNexusHp += 10;
-            nexusHp += 10;
+            //maxNexusHp += 10;
+            //nexusHp += 10;
         }
         Debug.Log("Level Up! Current Level: " + lvl);
         Debug.Log("Current Nexus HP: " + nexusHp);
