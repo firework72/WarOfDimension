@@ -87,7 +87,8 @@ public class Tower : MonoBehaviour
     }
 
     // 타워를 업그레이드하는 함수
-    public void Upgrade()
+    // 실패시 UI 닫지 않게 성공/실패 여부 반환하도록 void -> bool로 변경
+    public bool Upgrade()
     {
         if (nextTower != null)
         {
@@ -107,16 +108,19 @@ public class Tower : MonoBehaviour
                 newTower.GetComponent<Tower>().towerLvl = towerLvl;
                 newTower.GetComponent<Tower>().upgradeCost *= towerLvl; // Increase the upgrade cost for the next level
                 Destroy(gameObject); // Destroy the current tower
+                return true;    // 업그레이드 성공
             }
             else
             {
                 Debug.Log("Not enough gold to upgrade!");
                 ErrorMessageManager.Instance.ShowErrorMessage("You don't have enough gold");
+                return false;   // 업그레이드 실패패
             }
         }
         else
         {
             Debug.Log("No next tower available for upgrade!");
+            return false;
         }
     }
 }

@@ -122,9 +122,13 @@ public class UIManager : MonoBehaviour
     {
         if (selectedTower != null)
         {
-            selectedTower.Upgrade();
-            selectedTower = null;
-            towerUpgradeUI.SetActive(false);
+            bool upgradeSuccess = selectedTower.Upgrade();
+            if (upgradeSuccess)
+            {
+                selectedTower = null;
+                towerUpgradeUI.SetActive(false);
+            }
+            // 실패 시에는 창을 닫지 않음
         }
     }
 
